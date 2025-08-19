@@ -5,6 +5,17 @@ from openai import OpenAI
 # # Configuración de la página
 # st.set_page_config(page_title="AurIA")
 # # Inicializar cliente OpenAI
+
+import streamlit.components.v1 as components
+
+# Fondo animado
+components.html(
+    open("background.html", "r").read(),
+    height=0,  # ocultamos la altura fija
+    width=0,
+)
+
+
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )

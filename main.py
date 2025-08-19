@@ -2,26 +2,22 @@
 import streamlit as st
 import os
 from openai import OpenAI
-# Configuración de la página
-st.set_page_config(page_title="AurIA")
-# Inicializar cliente OpenAI
+# # Configuración de la página
+# st.set_page_config(page_title="AurIA")
+# # Inicializar cliente OpenAI
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-# # Mostrar el logo y título centrado
-# st.markdown(
-#     """
-#     <div style='text-align: center; margin-top: -50px;'>
-#         <img src='https://raw.githubusercontent.com/Reiker1894/auria-mvp/blob/auria-logo-white.png' width='150'/>
-#         <h1 style='color: #00FFC6;'>AurIA</h1>
-#         <p style='color: white;'>Tu asesor financiero inteligente</p>
-#     </div>
-#     """,
-#     unsafe_allow_html=True
-# )
-
-# st.markdown("---")
+# Mostrar solo el logo, centrado
+st.markdown(
+    """
+    <div style='text-align: center; margin-top: -40px;'>
+        <img src='https://raw.githubusercontent.com/Reiker1894/auria-mvp/main/auria-logo-white.png' width='220'/>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 auria_prompt = """

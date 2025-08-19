@@ -2,11 +2,28 @@
 import streamlit as st
 import os
 from openai import OpenAI
-
+# Configuración de la página
+st.set_page_config(page_title="AurIA", page_icon="💸")
 # Inicializar cliente OpenAI
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
+
+# Mostrar el logo y título centrado
+st.markdown(
+    """
+    <div style='text-align: center; margin-top: -50px;'>
+        <img src='https://raw.githubusercontent.com/reiker1894/auria-mvp/auria-logo-white.png' width='150'/>
+        <h1 style='color: #00FFC6;'>AurIA</h1>
+        <p style='color: white;'>Tu asesor financiero inteligente</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown("---")
+
+
 auria_prompt = """
 Eres AurIA, un agente financiero inteligente con enfoque en usuarios de habla hispana, especialmente en Colombia...
 

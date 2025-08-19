@@ -67,21 +67,24 @@ if not st.session_state.perfil_completado and nombre_usuario:
             st.warning(f"No encontramos un perfil con el nombre '{nombre_usuario}'.")
 
     with st.form("form_perfil"):
-       ingreso = st.number_input("💵 Ingreso mensual (COP)", min_value=0, step=100000,
-                          value=perfil_existente["ingreso"] if perfil_existente else 0)
-        gasto = st.number_input("💸 Gasto mensual estimado (COP)", min_value=0, step=100000,
-                                value=perfil_existente["gasto"] if perfil_existente else 0)
-        deuda = st.number_input("📉 Total de deudas (COP)", min_value=0, step=100000, value=perfil_existente["deuda"] if perfil_existente else 0)
-        objetivo = st.selectbox("🎯 Tu objetivo financiero", [
-            "Ahorrar para un objetivo", "Salir de deudas",
-            "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"
-        ], index=0 if not perfil_existente else
-            ["Ahorrar para un objetivo", "Salir de deudas",
-             "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"]
-            .index(perfil_existente["objetivo"]))
+    ingreso = st.number_input("💵 Ingreso mensual (COP)", min_value=0, step=100000,
+                              value=perfil_existente["ingreso"] if perfil_existente else 0)
 
-        guardar = st.form_submit_button("💾 Guardar perfil")
+    gasto = st.number_input("💸 Gasto mensual estimado (COP)", min_value=0, step=100000,
+                            value=perfil_existente["gasto"] if perfil_existente else 0)
 
+    deuda = st.number_input("📉 Total de deudas (COP)", min_value=0, step=100000,
+                            value=perfil_existente["deuda"] if perfil_existente else 0)
+
+    objetivo = st.selectbox("🎯 Tu objetivo financiero", [
+        "Ahorrar para un objetivo", "Salir de deudas",
+        "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"
+    ], index=0 if not perfil_existente else
+        ["Ahorrar para un objetivo", "Salir de deudas",
+         "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"]
+        .index(perfil_existente["objetivo"]))
+
+    guardar = st.form_submit_button("💾 Guardar perfil")
     if guardar:
         perfil = {
             "ingreso": ingreso,

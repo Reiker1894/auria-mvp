@@ -71,7 +71,7 @@ if "messages" not in st.session_state:
     ]
 
 st.set_page_config(page_title="AurIA", page_icon="💰")
-st.title("💬 AurIA – Tu agente financiero inteligente")
+st.title("💬 Hola, soy AurIA. Hazme cualquier pregunta sobre tus finanzas.")
 
 user_input = st.chat_input("Escribe tu pregunta financiera...")
 

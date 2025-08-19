@@ -69,7 +69,6 @@ if not st.session_state.perfil_completado and nombre_usuario:
     with st.form("form_perfil"):
        ingreso = st.number_input("💵 Ingreso mensual (COP)", min_value=0, step=100000,
                           value=perfil_existente["ingreso"] if perfil_existente else 0)
-
         gasto = st.number_input("💸 Gasto mensual estimado (COP)", min_value=0, step=100000,
                                 value=perfil_existente["gasto"] if perfil_existente else 0)
         deuda = st.number_input("📉 Total de deudas (COP)", min_value=0, step=100000, value=perfil_existente["deuda"] if perfil_existente else 0)

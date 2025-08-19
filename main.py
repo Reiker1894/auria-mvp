@@ -1,7 +1,99 @@
 
 import streamlit as st
 import os
+import json
 from openai import OpenAI
+# Nombre del archivo donde se guardarán los perfiles
+DATA_FILE = "usuarios.json"
+
+# Función para cargar todos los usuarios guardados
+def cargar_datos():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as f:
+            return json.load(f)
+    return {}
+
+# Función para guardar/actualizar un usuario
+def guardar_datos(nombre, perfil):
+    datos = cargar_datos()
+    datos[nombre] = perfil
+    with open(DATA_FILE, "w") as f:
+        json.dump(datos, f, indent=2)
+
+# Función para recuperar un perfil por nombre
+def obtener_perfil(nombre):
+    datos = cargar_datos()
+    return datos.get(nombre, None)
+
+st.markdown("---")
+st.header("👋 Bienvenido a AurIA")
+
+if "perfil" not in st.session_state:
+    st.session_state.perfil = {}
+
+# Pregunta si es nuevo o ya tiene perfil
+tipo_usuario = st.radio("¿Eres un usuario nuevo o ya tienes perfil?", ["Nuevo", "Ya tengo perfil"])
+
+# Pedir el nombre del usuario
+nombre_usuario = st.text_input("🧑 Escribe tu nombre para comenzar")
+
+# Si el usuario escribe su nombre, iniciamos el proceso
+if nombre_usuario:
+    perfil_existente = obtener_perfil(nombre_usuario) if tipo_usuario == "Ya tengo perfil" else None
+
+    # Si es nuevo, saludarlo
+    if tipo_usuario == "Nuevo" and not perfil_existente:
+        st.success(f"Hola **{nombre_usuario}**, ¡bienvenido a AurIA!")
+
+    # Si ya tiene perfil, cargarlo
+    elif tipo_usuario == "Ya tengo perfil":
+        if perfil_existente:
+            st.session_state.perfil = perfil_existente
+            st.success(f"¡Hola de nuevo, {nombre_usuario}! Cargamos tu perfil.")
+        else:
+            st.warning(f"No encontramos un perfil con el nombre '{nombre_usuario}'.")
+
+    # Mostrar el formulario para crear o actualizar el perfil
+    if tipo_usuario == "Nuevo" or (tipo_usuario == "Ya tengo perfil" and perfil_existente):
+        with st.form("form_perfil"):
+            ingreso = st.number_input("💵 Ingreso mensual (COP)", min_value=0, step=100000,
+                                      value=perfil_existente["ingreso"] if perfil_existente else 0)
+            gasto = st.number_input("💸 Gasto mensual estimado (COP)", min_value=0, step=100000,
+                                    value=perfil_existente["gasto"] if perfil_existente else 0)
+            deuda = st.number_input("📉 Total de deudas (COP)", min_value=0, step=100000,
+                                    value=perfil_existente["deuda"] if perfil_existente else 0)
+            objetivo = st.selectbox("🎯 Tu objetivo financiero", [
+                "Ahorrar para un objetivo", "Salir de deudas",
+                "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"
+            ], index=0 if not perfil_existente else
+                ["Ahorrar para un objetivo", "Salir de deudas",
+                 "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"]
+                .index(perfil_existente["objetivo"]))
+
+            guardar = st.form_submit_button("💾 Guardar perfil")
+
+        if guardar:
+            perfil = {
+                "ingreso": ingreso,
+                "gasto": gasto,
+                "deuda": deuda,
+                "objetivo": objetivo,
+                "nombre": nombre_usuario
+            }
+            guardar_datos(nombre_usuario, perfil)
+            st.session_state.perfil = perfil
+            st.success(f"✅ Información guardada para {nombre_usuario}.")
+
+# Mostrar el resumen del perfil si existe
+if st.session_state.perfil:
+    st.markdown(f"### 🧠 AurIA recuerda tu perfil, **{st.session_state.perfil['nombre']}**:")
+    st.markdown(f"- Ingreso mensual: **${st.session_state.perfil['ingreso']:,.0f} COP**")
+    st.markdown(f"- Gasto mensual: **${st.session_state.perfil['gasto']:,.0f} COP**")
+    st.markdown(f"- Deuda total: **${st.session_state.perfil['deuda']:,.0f} COP**")
+    st.markdown(f"- Objetivo: **{st.session_state.perfil['objetivo']}**")
+
+
+
 # # Configuración de la página
 # st.set_page_config(page_title="AurIA")
 # # Inicializar cliente OpenAI

@@ -66,8 +66,7 @@ if not st.session_state.perfil_completado and nombre_usuario:
         else:
             st.warning(f"No encontramos un perfil con el nombre '{nombre_usuario}'.")
 
-
-    with st.form("form_perfil"):
+with st.form("form_perfil"):
     ingreso = st.number_input("💵 Ingreso mensual (COP)", min_value=0, step=100000,
                               value=perfil_existente["ingreso"] if perfil_existente else 0)
 
@@ -85,8 +84,8 @@ if not st.session_state.perfil_completado and nombre_usuario:
          "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"]
         .index(perfil_existente["objetivo"]))
 
-    guardar = st.form_submit_button("💾 Guardar perfil")    
-    
+    guardar = st.form_submit_button("💾 Guardar perfil")
+
     if guardar:
         perfil = {
             "ingreso": ingreso,

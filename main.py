@@ -9,19 +9,19 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-# Mostrar el logo y título centrado
-st.markdown(
-    """
-    <div style='text-align: center; margin-top: -50px;'>
-        <img src='https://raw.githubusercontent.com/Reiker1894/auria-mvp/blob/auria-logo-white.png' width='150'/>
-        <h1 style='color: #00FFC6;'>AurIA</h1>
-        <p style='color: white;'>Tu asesor financiero inteligente</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+# # Mostrar el logo y título centrado
+# st.markdown(
+#     """
+#     <div style='text-align: center; margin-top: -50px;'>
+#         <img src='https://raw.githubusercontent.com/Reiker1894/auria-mvp/blob/auria-logo-white.png' width='150'/>
+#         <h1 style='color: #00FFC6;'>AurIA</h1>
+#         <p style='color: white;'>Tu asesor financiero inteligente</p>
+#     </div>
+#     """,
+#     unsafe_allow_html=True
+# )
 
-st.markdown("---")
+# st.markdown("---")
 
 
 auria_prompt = """

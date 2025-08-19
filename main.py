@@ -56,14 +56,14 @@ if nombre_usuario:
 
     if tipo_usuario == "Nuevo" and not perfil_existente:
         st.success(f"Hola **{nombre_usuario}**, ¡bienvenido a AurIA!")
-   elif tipo_usuario == "Ya tengo perfil":
-    if perfil_existente:
-        st.session_state.perfil = perfil_existente
-        st.session_state.form_mostrado = False  # 👈 Oculta el formulario si ya existe
-        st.success(f"¡Hola de nuevo, {nombre_usuario}! Cargamos tu perfil.")
-    else:
-        st.warning(f"No encontramos un perfil con el nombre '{nombre_usuario}'.")
-
+    elif tipo_usuario == "Ya tengo perfil":
+        if perfil_existente:
+            st.session_state.perfil = perfil_existente
+            st.session_state.form_mostrado = False  # 👈 Oculta el formulario si ya existe
+            st.success(f"¡Hola de nuevo, {nombre_usuario}! Cargamos tu perfil.")
+        else:
+            st.warning(f"No encontramos un perfil con el nombre '{nombre_usuario}'.")
+    
 
     if st.session_state.form_mostrado and (tipo_usuario == "Nuevo" or perfil_existente):
         with st.form("form_perfil"):

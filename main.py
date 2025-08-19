@@ -96,6 +96,7 @@ if user_input:
                 model="gpt-4o",
                 messages=st.session_state.messages,
                 temperature=0.6
+                tools=["web_browser"],  # si tu cuenta lo permite
             )
             reply = response.choices[0].message.content
             st.session_state.messages.append({"role": "assistant", "content": reply})

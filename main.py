@@ -187,7 +187,7 @@ if user_input:
             response = client.chat.completions.create(
                 model="gpt-4o",
                 messages=st.session_state.messages,
-                temperature=0.6
+                temperature=0.6,
                 tools=["web_browser"],  # si tu cuenta lo permite
             )
             reply = response.choices[0].message.content

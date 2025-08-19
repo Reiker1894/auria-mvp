@@ -143,3 +143,21 @@ if user_input and "last_user_input" not in st.session_state:
             st.session_state.messages.append({"role": "assistant", "content": error_msg})
             st.error(error_msg)
 
+if user_input and "last_user_input" not in st.session_state:
+    st.session_state.last_user_input = user_input
+    st.session_state.messages.append({"role": "user", "content": user_input})
+
+    with st.spinner("AurIA está pensando..."):
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=st.session_state.messages,
+                temperature=0.6,
+                # tools=["web_browser"],  # solo si está correctamente configurado
+            )
+            reply = response.choices[0].message.content
+            st.session_state.messages.append({"role": "assistant", "content": reply})
+        except Exception as e:
+            error_msg = "❌ Error: " + str(e)
+            st.session_state.messages.append({"role": "assistant", "content": error_msg})
+            st.error(error_msg)

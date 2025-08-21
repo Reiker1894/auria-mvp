@@ -1,4 +1,4 @@
-
+!pip install GoogleSearch
 import streamlit as st
 import os
 import json

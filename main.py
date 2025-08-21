@@ -4,7 +4,7 @@ import os
 import json
 from openai import OpenAI
 import streamlit.components.v1 as components
-
+from serpapi import GoogleSearch
 
 # --- Funciones
 

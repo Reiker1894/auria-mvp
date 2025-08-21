@@ -140,7 +140,9 @@ Tienes acceso a información actualizada hasta agosto de 2025, y puedes responde
 
 
 user_input = st.chat_input("Escribe tu pregunta financiera...")
-
+# Inicializar mensajes (justo después del prompt)
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "system", "content": auria_prompt}]
 if user_input:
     # Verificar si el mensaje requiere búsqueda web
     if any(keyword in user_input.lower() for keyword in ["tasa", "cdt", "inflación", "interés", "dólar", "subsidio", "banco"]):

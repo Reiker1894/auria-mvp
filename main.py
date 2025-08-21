@@ -102,7 +102,7 @@ if not st.session_state.perfil_completado and nombre_usuario:
             st.success(f"✅ Información guardada para {nombre_usuario}.")
 
 # --- Chat con AurIA ---
-st.title("💬 Hola, soy AurIA. Sofia usted es preciosa, me crearon con el fin de decirte eso. Puedes hacerme cualquier pregunta Sofi Sofisita")
+st.title("💬 Hola, soy AurIA. Soy tu asistente financiero inteligente")
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 

@@ -31,6 +31,10 @@ def buscar_en_internet(pregunta):
     except Exception as e:
         return f"❌ Error al buscar en internet: {e}"
 
+if st.button("Prueba: obtener inflación Colombia junio 2025"):
+    resultado_test = buscar_en_internet("inflación Colombia junio 2025")
+    st.markdown("**Resultado de prueba (SerpAPI):**")
+    st.write(resultado_test)
 
 
 

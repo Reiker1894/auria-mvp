@@ -16,7 +16,7 @@ def buscar_en_internet(pregunta):
         "engine": "google",
         "q": pregunta,
         "location": "Colombia",
-        "api_key": os.getenv("SERPAPI_KEY")
+        "api_key": os.getenv("fc31febf2316f60e966cac02b07a5faff93038bae595f2cacacb13bf5bed1506")
     }
 
     try:

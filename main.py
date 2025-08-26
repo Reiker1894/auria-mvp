@@ -71,71 +71,71 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- Bienvenida y formulario de perfil ---
-st.header("👋 Bienvenido a AurIA")
+# # --- Bienvenida y formulario de perfil ---
+# st.header("👋 Bienvenido a AurIA")
 
-if "perfil" not in st.session_state:
-    st.session_state.perfil = {}
+# if "perfil" not in st.session_state:
+#     st.session_state.perfil = {}
 
-if "perfil_completado" not in st.session_state:
-    st.session_state.perfil_completado = False
+# if "perfil_completado" not in st.session_state:
+#     st.session_state.perfil_completado = False
 
-# Controlar si se oculta el formulario después de guardarlo
-if "form_mostrado" not in st.session_state:
-    st.session_state.form_mostrado = True
+# # Controlar si se oculta el formulario después de guardarlo
+# if "form_mostrado" not in st.session_state:
+#     st.session_state.form_mostrado = True
 
-tipo_usuario = st.radio("¿Eres un usuario nuevo o ya tienes perfil?", ["Nuevo", "Ya tengo perfil"])
-nombre_usuario = st.text_input("🧑 Escribe tu nombre para comenzar")
+# tipo_usuario = st.radio("¿Eres un usuario nuevo o ya tienes perfil?", ["Nuevo", "Ya tengo perfil"])
+# nombre_usuario = st.text_input("🧑 Escribe tu nombre para comenzar")
 
-perfil_existente = None
-if nombre_usuario and tipo_usuario == "Ya tengo perfil":
-    perfil_existente = obtener_perfil(nombre_usuario)
+# perfil_existente = None
+# if nombre_usuario and tipo_usuario == "Ya tengo perfil":
+#     perfil_existente = obtener_perfil(nombre_usuario)
 
-if not st.session_state.perfil_completado and nombre_usuario:
-    if tipo_usuario == "Nuevo" and not perfil_existente:
-        st.success(f"Hola **{nombre_usuario}**, ¡bienvenido a AurIA!")
-    elif tipo_usuario == "Ya tengo perfil":
-        if perfil_existente:
-            st.session_state.perfil = perfil_existente
-            st.success(f"¡Hola de nuevo, {nombre_usuario}! Cargamos tu perfil.")
-        else:
-            st.warning(f"No encontramos un perfil con el nombre '{nombre_usuario}'.")
+# if not st.session_state.perfil_completado and nombre_usuario:
+#     if tipo_usuario == "Nuevo" and not perfil_existente:
+#         st.success(f"Hola **{nombre_usuario}**, ¡bienvenido a AurIA!")
+#     elif tipo_usuario == "Ya tengo perfil":
+#         if perfil_existente:
+#             st.session_state.perfil = perfil_existente
+#             st.success(f"¡Hola de nuevo, {nombre_usuario}! Cargamos tu perfil.")
+#         else:
+#             st.warning(f"No encontramos un perfil con el nombre '{nombre_usuario}'.")
 
-    with st.form("form_perfil"):
-        ingreso = st.number_input("💵 Ingreso mensual (COP)", min_value=0, step=100000,
-                                  value=perfil_existente["ingreso"] if perfil_existente else 0)
+#     with st.form("form_perfil"):
+#         ingreso = st.number_input("💵 Ingreso mensual (COP)", min_value=0, step=100000,
+#                                   value=perfil_existente["ingreso"] if perfil_existente else 0)
 
-        gasto = st.number_input("💸 Gasto mensual estimado (COP)", min_value=0, step=100000,
-                                value=perfil_existente["gasto"] if perfil_existente else 0)
+#         gasto = st.number_input("💸 Gasto mensual estimado (COP)", min_value=0, step=100000,
+#                                 value=perfil_existente["gasto"] if perfil_existente else 0)
 
-        deuda = st.number_input("📉 Total de deudas (COP)", min_value=0, step=100000,
-                                value=perfil_existente["deuda"] if perfil_existente else 0)
+#         deuda = st.number_input("📉 Total de deudas (COP)", min_value=0, step=100000,
+#                                 value=perfil_existente["deuda"] if perfil_existente else 0)
 
-        objetivo = st.selectbox("🎯 Tu objetivo financiero", [
-            "Ahorrar para un objetivo", "Salir de deudas",
-            "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"
-        ], index=0 if not perfil_existente else
-            ["Ahorrar para un objetivo", "Salir de deudas",
-             "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"]
-            .index(perfil_existente["objetivo"]))
+#         objetivo = st.selectbox("🎯 Tu objetivo financiero", [
+#             "Ahorrar para un objetivo", "Salir de deudas",
+#             "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"
+#         ], index=0 if not perfil_existente else
+#             ["Ahorrar para un objetivo", "Salir de deudas",
+#              "Invertir inteligentemente", "Controlar mis gastos", "Mejorar historial crediticio"]
+#             .index(perfil_existente["objetivo"]))
 
-        guardar = st.form_submit_button("💾 Guardar perfil")
+#         guardar = st.form_submit_button("💾 Guardar perfil")
 
-        if guardar:
-            perfil = {
-                "ingreso": ingreso,
-                "gasto": gasto,
-                "deuda": deuda,
-                "objetivo": objetivo,
-                "nombre": nombre_usuario
-            }
-            guardar_datos(nombre_usuario, perfil)
-            st.session_state.perfil = perfil
-            st.session_state.perfil_completado = True
-            st.success(f"✅ Información guardada para {nombre_usuario}.")
+#         if guardar:
+#             perfil = {
+#                 "ingreso": ingreso,
+#                 "gasto": gasto,
+#                 "deuda": deuda,
+#                 "objetivo": objetivo,
+#                 "nombre": nombre_usuario
+#             }
+#             guardar_datos(nombre_usuario, perfil)
+#             st.session_state.perfil = perfil
+#             st.session_state.perfil_completado = True
+#             st.success(f"✅ Información guardada para {nombre_usuario}.")
 
 # --- Chat con AurIA ---
-st.title("💬 Hola, soy AurIA. Soy tu asistente financiero inteligente")
+st.title("💬 Hola, soy AurIA. Soy tu asistente inteligente sobre la SHD")
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 

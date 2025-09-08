@@ -17,7 +17,7 @@ components.html(open("background.html", "r").read(), height=0, width=0)
 # --- Mostrar logo centrado ---
 st.markdown("""
 <div style='text-align: center; margin-top: -40px;'>
-    <img src='https://raw.githubusercontent.com/Reiker1894/auria-mvp/main/auria-logo-white.png' width='220'/>
+    <img src='https://raw.githubusercontent.com/Reiker1894/auria-mvp/main/auria-logo-white.png' width='420'/>
 </div>
 """, unsafe_allow_html=True)
 

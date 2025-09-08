@@ -1,4 +1,4 @@
-!pip install supabase
+
 from supabase import create_client, Client
 
 # Usa tus propios valores aquí:

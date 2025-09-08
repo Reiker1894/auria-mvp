@@ -37,7 +37,7 @@ if "username" not in st.session_state:
     nombre_ingresado = st.text_input("🧑 Escribe tu nombre para comenzar:")
     if nombre_ingresado:
         st.session_state.username = nombre_ingresado
-        st.experimental_rerun()
+        st.rerun()
 else:
     nombre_usuario = st.session_state.username
 

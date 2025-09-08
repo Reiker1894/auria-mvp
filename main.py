@@ -10,6 +10,26 @@ from tools.prompt_loader import cargar_prompt
 st.set_page_config(page_title="AurIA", page_icon="💰")
 components.html(open("background.html", "r").read(), height=0, width=0)
 
+
+
+
+
+# Capturar nombre del usuario si aún no lo ha ingresado
+if "username" not in st.session_state:
+    nombre_ingresado = st.text_input("🧑 Escribe tu nombre para comenzar:")
+    if nombre_ingresado:
+        st.session_state.username = nombre_ingresado
+        st.experimental_rerun()  # Recarga la app para mostrar el chat con todo inicializado
+else:
+    nombre_usuario = st.session_state.username
+    auria_prompt = cargar_prompt()  # Aquí puedes continuar con el resto del flujo
+
+
+
+
+
+
+
 # --- Inicializar cliente OpenAI
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 

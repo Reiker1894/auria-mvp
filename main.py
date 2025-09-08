@@ -11,6 +11,19 @@ from tools.prompt_loader import cargar_prompt
 st.set_page_config(page_title="AurIA", page_icon="💰")
 components.html(open("background.html", "r").read(), height=0, width=0)
 
+
+components.html(open("background.html", "r").read(), height=0, width=0)
+
+# --- Mostrar logo centrado ---
+st.markdown("""
+<div style='text-align: center; margin-top: -40px;'>
+    <img src='https://raw.githubusercontent.com/Reiker1894/auria-mvp/main/auria-logo-white.png' width='220'/>
+</div>
+""", unsafe_allow_html=True)
+
+
+
+
 # --- Mostrar título
 st.title("💬 Hola, soy AurIA. Tu asistente financiero en Colombia")
 

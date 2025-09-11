@@ -1,0 +1,38 @@
+# utils/perfil_helpers.py
+
+from supabase_client import supabase
+
+def cargar_perfil_financiero(usuario_id: str):
+    response = supabase.table("perfil_financiero") \
+        .select("*") \
+        .eq("usuario_id", usuario_id) \
+        .limit(1) \
+        .execute()
+
+    if response.data:
+        return response.data[0]  # Retorna el dict con el perfil
+    else:
+        return None
+
+def guardar_perfil_financiero(usuario_id: str, ingreso: float, gasto: float, deuda: float, objetivo: str):
+    perfil_existente = cargar_perfil_financiero(usuario_id)
+
+    datos = {
+        "usuario_id": usuario_id,
+        "ingreso_mensual": ingreso,
+        "gasto_mensual": gasto,
+        "deuda_total": deuda,
+        "objetivo": objetivo
+    }
+
+    if perfil_existente:
+        # Actualiza
+        supabase.table("perfil_financiero") \
+            .update(datos) \
+            .eq("usuario_id", usuario_id) \
+            .execute()
+    else:
+        # Inserta nuevo
+        supabase.table("perfil_financiero") \
+            .insert(datos) \
+            .execute()

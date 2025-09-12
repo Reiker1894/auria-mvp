@@ -11,6 +11,7 @@ from supabase_client import supabase
 from utils.supabase_helpers import guardar_turno, cargar_historial
 import streamlit.components.v1 as components
 from tools.prompt_loader import cargar_prompt
+from utils.perfil_helpers import cargar_perfil_financiero, guardar_perfil_financiero
 
 # --- Configuración de página
 st.set_page_config(page_title="AurIA", page_icon="💰")

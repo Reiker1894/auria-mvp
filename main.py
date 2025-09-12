@@ -45,6 +45,34 @@ else:
     if "perfil_financiero" not in st.session_state:
         perfil = cargar_perfil_financiero(nombre_usuario)
         st.session_state.perfil_financiero = perfil
+         # --- Mostrar formulario si no hay perfil aún
+    if st.session_state.perfil_financiero is None:
+        st.warning("⚠️ Aún no has creado tu perfil financiero.")
+        st.subheader("📋 Completa tu perfil para recomendaciones personalizadas")
+
+        with st.form("form_perfil_financiero"):
+            ingreso = st.number_input("💵 Ingreso mensual (COP)", min_value=0, step=50000)
+            gasto = st.number_input("💸 Gasto mensual estimado (COP)", min_value=0, step=50000)
+            deuda = st.number_input("📉 Total de deudas (COP)", min_value=0, step=50000)
+            objetivo = st.selectbox("🎯 Tu objetivo financiero", [
+                "Ahorrar para un objetivo",
+                "Salir de deudas",
+                "Invertir inteligentemente",
+                "Controlar mis gastos",
+                "Mejorar historial crediticio"
+            ])
+            enviar = st.form_submit_button("💾 Guardar perfil")
+
+            if enviar:
+                guardar_perfil_financiero(
+                    usuario_id=nombre_usuario,
+                    ingreso=ingreso,
+                    gasto=gasto,
+                    deuda=deuda,
+                    objetivo=objetivo
+                )
+                st.success("✅ Perfil guardado correctamente.")
+                st.rerun()
 
     # --- Cargar prompt solo una vez
     if "messages" not in st.session_state:

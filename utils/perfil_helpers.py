@@ -1,5 +1,3 @@
-# utils/perfil_helpers.py
-
 from supabase_client import supabase
 
 def cargar_perfil_financiero(usuario_id: str):
@@ -10,13 +8,11 @@ def cargar_perfil_financiero(usuario_id: str):
         .execute()
 
     if response.data:
-        return response.data[0]  # Retorna el dict con el perfil
+        return response.data[0]
     else:
         return None
 
 def guardar_perfil_financiero(usuario_id: str, ingreso: float, gasto: float, deuda: float, objetivo: str):
-    perfil_existente = cargar_perfil_financiero(usuario_id)
-
     datos = {
         "usuario_id": usuario_id,
         "ingreso_mensual": ingreso,
@@ -25,14 +21,4 @@ def guardar_perfil_financiero(usuario_id: str, ingreso: float, gasto: float, deu
         "objetivo": objetivo
     }
 
-    if perfil_existente:
-        # Actualiza
-        supabase.table("perfil_financiero") \
-            .update(datos) \
-            .eq("usuario_id", usuario_id) \
-            .execute()
-    else:
-        # Inserta nuevo
-        supabase.table("perfil_financiero") \
-            .insert(datos) \
-            .execute()
+    supabase.table("perfil_financiero").upsert(datos, on_conflict=["usuario_id"]).execute()

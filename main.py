@@ -41,11 +41,30 @@ if "username" not in st.session_state:
 else:
     nombre_usuario = st.session_state.username
 
+    # --- ⬇️ Nuevo: cargar perfil financiero desde Supabase
+    if "perfil_financiero" not in st.session_state:
+        perfil = cargar_perfil_financiero(nombre_usuario)
+        st.session_state.perfil_financiero = perfil
+
     # --- Cargar prompt solo una vez
     if "messages" not in st.session_state:
         auria_prompt = cargar_prompt()
+
+        # 🧠 Si hay perfil financiero, lo usamos para personalizar el system prompt
+        if st.session_state.perfil_financiero:
+            p = st.session_state.perfil_financiero
+            auria_prompt += (
+                f"\n\n📊 Este usuario tiene:\n"
+                f"- Ingreso mensual: {p['ingreso_mensual']} COP\n"
+                f"- Gasto mensual: {p['gasto_mensual']} COP\n"
+                f"- Deuda total: {p['deuda_total']} COP\n"
+                f"- Objetivo financiero: {p['objetivo']}.\n"
+                f"Adapta tus respuestas a este contexto."
+            )
+
         st.session_state.messages = [{"role": "system", "content": auria_prompt}]
         st.session_state.messages += cargar_historial(nombre_usuario)[1:]  # omitimos repetir el system
+
 
     # --- Inicializar cliente OpenAI
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
